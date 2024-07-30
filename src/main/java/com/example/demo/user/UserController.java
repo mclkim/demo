@@ -1,7 +1,5 @@
 package com.example.demo.user;
 
-import jakarta.validation.Valid;
-
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -9,8 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/user")
@@ -48,10 +49,5 @@ public class UserController {
         }
 
         return "redirect:/";
-    }
-
-    @GetMapping("/login")
-    public String login() {
-        return "login_form";
     }
 }
