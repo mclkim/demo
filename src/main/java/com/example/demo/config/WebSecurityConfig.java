@@ -1,6 +1,5 @@
 package com.example.demo.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,20 +9,23 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.example.demo.config.jwt.AuthEntryPointJwt;
 import com.example.demo.config.jwt.AuthTokenFilter;
 import com.example.demo.login.UserDetailsServiceImpl;
+
+import lombok.RequiredArgsConstructor;
 
 // import com.bezkoder.spring.login.security.jwt.AuthEntryPointJwt;
 // import com.bezkoder.spring.login.security.jwt.AuthTokenFilter;
 // import com.bezkoder.spring.login.security.services.UserDetailsServiceImpl;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
@@ -31,11 +33,11 @@ import com.example.demo.login.UserDetailsServiceImpl;
 // jsr250Enabled = true,
 // prePostEnabled = true) // by default
 public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
-  @Autowired
-  UserDetailsServiceImpl userDetailsService;
+  // @Autowired
+  private final UserDetailsServiceImpl userDetailsService;
 
-  @Autowired
-  private AuthEntryPointJwt unauthorizedHandler;
+  // @Autowired
+  // private final AuthEntryPointJwt unauthorizedHandler;
 
   @Bean
   public AuthTokenFilter authenticationJwtTokenFilter() {
@@ -92,7 +94,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     http.csrf(csrf -> csrf.disable())
         // .exceptionHandling(exception ->
         // exception.authenticationEntryPoint(unauthorizedHandler))
-        // .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests((auth) -> auth
             .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
         .formLogin((formLogin) -> formLogin
