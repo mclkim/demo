@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,4 +24,8 @@ public class SiteUser {
 
     @Column(unique = true)
     private String email;
+
+    // @ManyToMany(fetch = FetchType.LAZY)
+    // @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    // private Set<Role> roles = new HashSet<>();
 }
