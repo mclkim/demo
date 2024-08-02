@@ -6,6 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -29,7 +30,12 @@ public class LoginController {
 
   @PostMapping("/signin")
   public String authenticateUser(@Valid LoginRequest loginRequest,
+      BindingResult bindingResult,
       HttpServletResponse response) {
+
+    if (bindingResult.hasErrors()) {
+      return "login_form";
+    }
 
     Authentication authentication = authenticationManager
         .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -37,18 +43,9 @@ public class LoginController {
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
     UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+    log.error("userDetails -----> {}", userDetails);
 
     ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
-
-    // List<String> roles = userDetails.getAuthorities().stream()
-    // .map(item -> item.getAuthority())
-    // .collect(Collectors.toList());
-
-    // ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-    // .body(new UserInfoResponse(userDetails.getId(),
-    // userDetails.getUsername(),
-    // userDetails.getEmail(),
-    // roles));
 
     log.error("{}", jwtCookie.getName());
     log.error("{}", jwtCookie.getValue());

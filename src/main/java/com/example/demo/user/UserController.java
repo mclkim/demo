@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.login.LoginRequest;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -53,7 +55,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(LoginRequest loginRequest) {
         return "login_form";
     }
 

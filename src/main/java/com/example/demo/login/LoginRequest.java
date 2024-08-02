@@ -1,27 +1,16 @@
 package com.example.demo.login;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class LoginRequest {
-	@NotBlank
+	@NotBlank(message = "사용자ID는 필수항목입니다.")
 	private String username;
 
-	@NotBlank
+	@NotBlank(message = "비밀번호는 필수항목입니다.")
 	private String password;
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 }
