@@ -58,7 +58,7 @@ public class LoginService {
                 jwtUtil.createToken(siteUser.getUsername(), null));
         cookie.setMaxAge(7 * 24 * 60 * 60); // 7일 동안 유효
         cookie.setPath("/");
-        cookie.setDomain("localhost");
+        // cookie.setDomain("localhost");
         cookie.setSecure(false);
 
         response.addCookie(cookie);
