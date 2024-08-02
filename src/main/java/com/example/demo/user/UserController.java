@@ -56,4 +56,9 @@ public class UserController {
     public String login() {
         return "login_form";
     }
+
+    @GetMapping("/logout")
+    public String logout() {
+        return "redirect:/signout";
+    }
 }
