@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-//import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,34 +21,19 @@ import com.example.demo.login.UserDetailsServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
-// import com.bezkoder.spring.login.security.jwt.AuthEntryPointJwt;
-// import com.bezkoder.spring.login.security.jwt.AuthTokenFilter;
-// import com.bezkoder.spring.login.security.services.UserDetailsServiceImpl;
-
-@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
-// (securedEnabled = true,
-// jsr250Enabled = true,
-// prePostEnabled = true) // by default
-public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
-  // @Autowired
+@RequiredArgsConstructor
+public class WebSecurityConfig {
   private final UserDetailsServiceImpl userDetailsService;
 
-  // @Autowired
   private final AuthEntryPointJwt unauthorizedHandler;
 
   @Bean
   public AuthTokenFilter authenticationJwtTokenFilter() {
     return new AuthTokenFilter();
   }
-
-  // @Override
-  // public void configure(AuthenticationManagerBuilder
-  // authenticationManagerBuilder) throws Exception {
-  // authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-  // }
 
   @Bean
   public DaoAuthenticationProvider authenticationProvider() {
@@ -61,12 +45,6 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     return authProvider;
   }
 
-  // @Bean
-  // @Override
-  // public AuthenticationManager authenticationManagerBean() throws Exception {
-  // return super.authenticationManagerBean();
-  // }
-
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
     return authConfig.getAuthenticationManager();
@@ -76,19 +54,6 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
-
-  // @Override
-  // protected void configure(HttpSecurity http) throws Exception {
-  // http.cors().and().csrf().disable()
-  // .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-  // .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-  // .authorizeRequests().antMatchers("/api/auth/**").permitAll()
-  // .antMatchers("/api/test/**").permitAll()
-  // .anyRequest().authenticated();
-  //
-  // http.addFilterBefore(authenticationJwtTokenFilter(),
-  // UsernamePasswordAuthenticationFilter.class);
-  // }
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -103,6 +68,9 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 
     http.authenticationProvider(authenticationProvider());
 
+    /*
+     * JwtAuthFilter에 jwtUtil을 전달하여 UsernamePasswordAuthenticationFilter전에 필터로 등록한다.
+     */
     http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
