@@ -75,4 +75,8 @@ public class WebSecurityConfig {
 
     return http.build();
   }
+
+  // 커스텀 인증 필터
+  // 커스텀 인증 매니저
+
 }

@@ -24,6 +24,7 @@ import lombok.extern.log4j.Log4j2;
 public class LoginController {
   // @Autowired(required = true) // required를 false로 하여 주입 안받아도 예외처리 하지 않도록 함.
   private final AuthenticationManager authenticationManager;
+  // private final CustomAuthenticationManager authenticationManager;
 
   // @Autowired
   private final JwtUtils jwtUtils;
