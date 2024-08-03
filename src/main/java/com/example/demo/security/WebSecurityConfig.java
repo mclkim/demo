@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.demo.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.example.demo.config.jwt.AuthEntryPointJwt;
-import com.example.demo.config.jwt.AuthTokenFilter;
-import com.example.demo.login.UserDetailsServiceImpl;
+import com.example.demo.security.jwt.AuthTokenFilter;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class WebSecurityConfig {
   private final UserDetailsServiceImpl userDetailsService;
 
-  private final AuthEntryPointJwt unauthorizedHandler;
+  // private final AuthEntryPointJwt unauthorizedHandler;
 
   @Bean
   public AuthTokenFilter authenticationJwtTokenFilter() {

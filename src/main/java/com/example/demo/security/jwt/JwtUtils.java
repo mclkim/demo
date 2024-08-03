@@ -1,4 +1,4 @@
-package com.example.demo.config.jwt;
+package com.example.demo.security.jwt;
 
 import java.security.Key;
 import java.util.Date;
@@ -10,7 +10,7 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
 
-import com.example.demo.login.UserDetailsImpl;
+import com.example.demo.security.UserDetailsImpl;
 
 // import com.bezkoder.spring.login.security.services.UserDetailsImpl;
 

@@ -37,3 +37,8 @@
 
 ## 참고사이트
 - https://hyunjun.kr/20#springsecurityconfig
+- https://www.bezkoder.com/spring-boot-login-example-mysql/
+- https://www.bezkoder.com/spring-boot-jwt-mysql-spring-security-architecture/
+- https://github.com/shinsunyoung/springboot-developer
+- https://github.com/JasonSong97/SPRINGBOOT_BASIC
+- https://velog.io/@jaegeunsong_1997/

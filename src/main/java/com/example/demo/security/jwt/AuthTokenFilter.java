@@ -1,4 +1,4 @@
-package com.example.demo.config.jwt;
+package com.example.demo.security.jwt;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.demo.login.UserDetailsServiceImpl;
+import com.example.demo.security.UserDetailsServiceImpl;
 
 // import com.bezkoder.spring.login.security.services.UserDetailsServiceImpl;
 
